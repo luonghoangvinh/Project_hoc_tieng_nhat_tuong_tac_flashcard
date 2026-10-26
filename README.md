@@ -1,4 +1,4 @@
-"# GR1" 
+"# GR2"
 ## 1. Giới thiệu project học tập tiếng nhật: Rakun JLPT
 1.1 Vấn đề: 
 Người học tiếng nhật hiện nay phải sử dụng nhiều nguồn khác nhau, thiếu một nền tảng tổng hợp giúp luyện tập đầy đủ các kỹ năng theo cấu trúc đề thi JLPT thật.

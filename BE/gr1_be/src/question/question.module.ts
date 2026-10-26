@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Question, QuestionSchema } from './question.entity';
 import { QuestionController } from './question.controller';
 import { QuestionService } from './question.service';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
     imports: [
@@ -13,6 +14,7 @@ import { QuestionService } from './question.service';
                 schema: QuestionSchema,
             },
         ]),
+        AuthModule,
     ],
     controllers: [QuestionController],
     providers: [QuestionService],

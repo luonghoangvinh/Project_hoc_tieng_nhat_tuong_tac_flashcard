@@ -6,13 +6,16 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 
 @Controller('questions')
+@UseGuards(JwtAuthGuard)
 export class QuestionController {
     constructor(
         private readonly questionService: QuestionService,

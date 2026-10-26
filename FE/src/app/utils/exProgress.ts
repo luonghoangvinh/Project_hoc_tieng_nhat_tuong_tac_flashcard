@@ -1,4 +1,5 @@
 import { ExerciseProgress } from "../types";
+import { getAuthHeaders } from './apiHeaders';
 
 const API_URL = import.meta.env.VITE_API_URL;
 export default async function createNewExProgress(exerciseProgress: ExerciseProgress) {
@@ -6,7 +7,8 @@ export default async function createNewExProgress(exerciseProgress: ExerciseProg
         const response = await fetch(`${API_URL}/exercise-progress`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...getAuthHeaders(),
             },
             body: JSON.stringify(exerciseProgress)
         });
@@ -28,7 +30,8 @@ export async function updateExProgress(exerciseProgressId: string, exerciseProgr
         const response = await fetch(`${API_URL}/exercise-progress/${exerciseProgressId}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...getAuthHeaders(),
             },
             body: JSON.stringify(exerciseProgress)
         });

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { UserAnswer, UserAnswerDocument } from './user-answer.entity';
 import { CreateUserAnswerDto } from './dto/create-user-anwser.dto';
+import { Pagination } from '../common/pagination';
 
 @Injectable()
 export class UserAnswersService {
@@ -21,20 +22,22 @@ export class UserAnswersService {
         return userAnswer.toObject();
     }
 
-    async findAll() {
-        return this.userAnswerModel
+    async findAll(pagination?: Pagination) {
+        const query = this.userAnswerModel
             .find()
-            .sort({ answeredAt: -1 })
-            .lean();
+            .sort({ answeredAt: -1 });
+        if (pagination) query.skip(pagination.skip).limit(pagination.limit);
+        return query.lean();
     }
 
-    async findByUser(userId: string) {
-        return this.userAnswerModel
+    async findByUser(userId: string, pagination?: Pagination) {
+        const query = this.userAnswerModel
             .find({
                 userId: new Types.ObjectId(userId),
             })
-            .sort({ answeredAt: -1 })
-            .lean();
+            .sort({ answeredAt: -1 });
+        if (pagination) query.skip(pagination.skip).limit(pagination.limit);
+        return query.lean();
     }
 
     async findOne(id: string) {

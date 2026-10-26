@@ -8,9 +8,11 @@ import {
 import { User, UserSchema } from '../user/user.entity';
 import { ExerciseProgressController } from './exercise-progress.controller';
 import { ExerciseProgressService } from './exercise-progress.service';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
     imports: [
+        AuthModule,
         MongooseModule.forFeature([
             {
                 name: ExerciseProgress.name,

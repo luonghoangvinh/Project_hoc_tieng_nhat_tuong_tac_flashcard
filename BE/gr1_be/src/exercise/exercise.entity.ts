@@ -62,3 +62,4 @@ export class Exercise {
 }
 export const ExerciseSchema =
     SchemaFactory.createForClass(Exercise);
+ExerciseSchema.index({ level: 1, type: 1 });

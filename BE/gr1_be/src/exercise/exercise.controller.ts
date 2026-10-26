@@ -7,7 +7,10 @@ import {
     Patch,
     Post,
     Query,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { getPagination } from '../common/pagination';
 
 import { ExerciseService } from './exercise.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
@@ -21,6 +24,7 @@ export class ExerciseController {
     ) { }
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     create(
         @Body() dto: CreateExerciseDto,
     ) {
@@ -59,8 +63,8 @@ export class ExerciseController {
         }
     })
     @Get()
-    findAll() {
-        return this.exerciseService.findAll();
+    findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
+        return this.exerciseService.findAll(getPagination(page, limit));
     }
 
     @ApiOperation({
@@ -101,8 +105,10 @@ export class ExerciseController {
         @Query('userId') userId?: string,
         @Query('level') level?: string,
         @Query('type') type?: string,
+        @Query('page') page?: string,
+        @Query('limit') limit?: string,
     ) {
-        return this.exerciseService.getExercises(userId, level, type);
+        return this.exerciseService.getExercises(userId, level, type, getPagination(page, limit));
     }
 
 
@@ -184,6 +190,7 @@ export class ExerciseController {
 
 
     @Patch(':id')
+    @UseGuards(JwtAuthGuard)
     update(
         @Param('id') id: string,
         @Body() dto: UpdateExerciseDto,
@@ -192,6 +199,7 @@ export class ExerciseController {
     }
 
     @Delete(':id')
+    @UseGuards(JwtAuthGuard)
     delete(
         @Param('id') id: string,
     ) {

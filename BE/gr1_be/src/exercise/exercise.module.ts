@@ -6,6 +6,7 @@ import { ExerciseController } from './exercise.controller';
 import { ExerciseService } from './exercise.service';
 import { QuestionModule } from '../question/question.module';
 import { ExerciseProgressModule } from '../exercise-progress/exercise-progress.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { ExerciseProgressModule } from '../exercise-progress/exercise-progress.m
         ]),
         QuestionModule,
         ExerciseProgressModule,
+        AuthModule,
     ],
     controllers: [ExerciseController],
     providers: [ExerciseService],

@@ -25,7 +25,7 @@ export const generateExercises = (): Exercise[] => {
   return exercises;
 };
 
-
+const token = localStorage.getItem('access_token');
 export async function getExercises() {
   const res = await fetch(`${API_URL}/exercises`);
   return res.json();
@@ -46,7 +46,14 @@ function getTypeName(type: QuestionType): string {
 export function getExercisesByTypeAndLevel(userId: string, type: QuestionType, level: JLPTLevel){
   const getExercises = async (type: QuestionType, level: JLPTLevel) => {
     try {
-      const exercises = await fetch(`${API_URL}/exercises/findBy?userId=${userId}&type=${type}&level=${level}`);
+      const exercises = await fetch(`${API_URL}/exercises/findBy?userId=${userId}&type=${type}&level=${level}`,
+        {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }
+      );
       const data: Exercise[] = await exercises.json();
       return data;
     } catch (error) {

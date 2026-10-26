@@ -1,4 +1,5 @@
 import { UserAnswer, Deck } from '../types';
+import { getAuthHeaders } from './apiHeaders';
 
 const STORAGE_KEYS = {
   USER_ANSWERS: 'jlpt_user_answers',
@@ -13,7 +14,8 @@ export async function saveUserAnswer(answer: UserAnswer) {
     const data= await fetch(`${API_URL}/user-answers`,{
       method:"POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...getAuthHeaders(),
       },
       body: JSON.stringify(answer),
     })
@@ -25,7 +27,7 @@ export async function saveUserAnswer(answer: UserAnswer) {
 
 export async function getUserAnswers(userId:string) {
   try{
-    const res= await fetch(`${API_URL}/user-answers/user/${userId}`)
+    const res= await fetch(`${API_URL}/user-answers/user/${userId}`, { headers: getAuthHeaders() })
     return res;
   }catch(err){
     console.log(err);
@@ -34,7 +36,7 @@ export async function getUserAnswers(userId:string) {
 }
 
 export async function getUserStats(userId: string){
-  const res= await fetch(`${API_URL}/users/${userId}`);
+  const res= await fetch(`${API_URL}/users/${userId}`, { headers: getAuthHeaders() });
   const userData=await res.json();
 
   return [userData.point,userData.streak];

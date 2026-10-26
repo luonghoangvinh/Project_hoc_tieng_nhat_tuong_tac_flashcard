@@ -7,7 +7,9 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { DeckService } from './deck.service';
 import { CreateDeckDto } from './dto/create-deck.dto';
@@ -15,6 +17,7 @@ import { UpdateDeckDto } from './dto/update-deck.dto';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('decks')
+@UseGuards(JwtAuthGuard)
 export class DeckController {
     constructor(
         private readonly deckService: DeckService,

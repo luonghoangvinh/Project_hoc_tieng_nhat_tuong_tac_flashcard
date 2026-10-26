@@ -9,6 +9,7 @@ import { ExerciseProgress } from './exercise-progress.entity';
 import { CreateExerciseProgressDto } from './dto/create-exercise-progress.dto';
 import { UpdateExerciseProgressDto } from './dto/update-exercise-progress.dto';
 import { User } from '../user/user.entity';
+import { Pagination } from '../common/pagination';
 
 @Injectable()
 export class ExerciseProgressService {
@@ -62,15 +63,18 @@ export class ExerciseProgressService {
         });
     }
 
-    async findAll() {
-        return this.progressModel.find().exec();
+    async findAll(pagination?: Pagination) {
+        const query = this.progressModel.find();
+        if (pagination) query.skip(pagination.skip).limit(pagination.limit);
+        return query.exec();
     }
 
-    async findByUserId(userId: string) {
-        return this.progressModel
+    async findByUserId(userId: string, pagination?: Pagination) {
+        const query = this.progressModel
         .find({ userId: new Types.ObjectId(userId) })
-        .sort({ updatedAt: -1 })
-        .exec();
+        .sort({ updatedAt: -1 });
+        if (pagination) query.skip(pagination.skip).limit(pagination.limit);
+        return query.exec();
     }
 
     async create(dto: CreateExerciseProgressDto) {

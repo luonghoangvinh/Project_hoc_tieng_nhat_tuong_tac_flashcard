@@ -6,13 +6,16 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { ActivityHistoryService } from './activity-history.service';
 import { CreateActivityHistoryDto } from './dto/create-activity-history.dto';
 import { UpdateActivityHistoryDto } from './dto/update-activity-history.dto';
 
 @Controller('activity-history')
+@UseGuards(JwtAuthGuard)
 export class ActivityHistoryController {
     constructor(
         private readonly historyService: ActivityHistoryService,

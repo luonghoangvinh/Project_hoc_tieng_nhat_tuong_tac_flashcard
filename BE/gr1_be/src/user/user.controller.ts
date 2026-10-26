@@ -6,7 +6,9 @@ import {
     Param,
     Patch,
     Post,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,6 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UserController {
     constructor(
         private readonly userService: UserService,

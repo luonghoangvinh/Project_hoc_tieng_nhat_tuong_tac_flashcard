@@ -1,3 +1,4 @@
+import { getAuthHeaders } from './apiHeaders';
 
 const API_URL = import.meta.env.VITE_API_URL;
 export interface DayActivity {
@@ -19,7 +20,8 @@ export interface ExerciseDetail {
 }
 
 export async function getUserProgress(userId:string){
-  const res=await fetch(`${API_URL}/exercise-progress/user/${userId}`)
+  const res=await fetch(`${API_URL}/exercise-progress/user/${userId}`, { headers: getAuthHeaders() })
   const activity= await res.json();
   return activity;
 }
+import { getAuthHeaders } from './apiHeaders';

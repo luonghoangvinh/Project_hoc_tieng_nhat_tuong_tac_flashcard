@@ -4,9 +4,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Deck, DeckSchema } from './deck.entity';
 import { DeckService } from './deck.service';
 import { DeckController } from './deck.controller';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
     imports: [
+        AuthModule,
         MongooseModule.forFeature([
             {
                 name: Deck.name,

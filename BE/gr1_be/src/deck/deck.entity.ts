@@ -44,3 +44,4 @@ export class Deck {
 }
 export const DeckSchema =
     SchemaFactory.createForClass(Deck);
+DeckSchema.index({ userId: 1 });

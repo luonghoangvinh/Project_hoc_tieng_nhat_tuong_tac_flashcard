@@ -5,12 +5,17 @@ import {
     Get,
     Param,
     Post,
+    Query,
+    UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { getPagination } from '../common/pagination';
 import { UserAnswersService } from './user-answer.service';
 import { CreateUserAnswerDto } from './dto/create-user-anwser.dto';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('user-answers')
+@UseGuards(JwtAuthGuard)
 export class UserAnswersController {
     constructor(
         private readonly userAnswersService: UserAnswersService,
@@ -30,8 +35,8 @@ export class UserAnswersController {
     }
 
     @Get()
-    findAll() {
-        return this.userAnswersService.findAll();
+    findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
+        return this.userAnswersService.findAll(getPagination(page, limit));
     }
 
     @ApiOperation({
@@ -60,8 +65,10 @@ export class UserAnswersController {
     @Get('user/:userId')
     findByUser(
         @Param('userId') userId: string,
+        @Query('page') page?: string,
+        @Query('limit') limit?: string,
     ) {
-        return this.userAnswersService.findByUser(userId);
+        return this.userAnswersService.findByUser(userId, getPagination(page, limit));
     }
 
     @Get(':id')

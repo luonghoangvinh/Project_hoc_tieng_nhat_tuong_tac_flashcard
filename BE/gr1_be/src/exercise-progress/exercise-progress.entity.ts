@@ -36,3 +36,5 @@ export class ExerciseProgress {
 }
 export const ExerciseProgressSchema =
     SchemaFactory.createForClass(ExerciseProgress);
+ExerciseProgressSchema.index({ userId: 1, updatedAt: -1 });
+ExerciseProgressSchema.index({ userId: 1, exerciseId: 1 });

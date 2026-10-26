@@ -31,11 +31,11 @@ Người học tiếng nhật hiện nay phải sử dụng nhiều nguồn khá
 - Node.js/NPM: cần cho cả `FE` và `BE/gr1_be`, vì cả hai đều có `package.json`.
 - Front-end dependencies chính: React, Vite, TypeScript, Tailwind CSS, React Router, Radix UI, MUI, lucide-react, recharts. 
 - Back-end dependencies chính: NestJS, Mongoose, `@nestjs/config`, `@nestjs/jwt`, Passport JWT, bcrypt, class-validator. 
-- MongoDB: backend dùng `@nestjs/mongoose`, `mongoose` và biến `MONGODB_URI`. 
+- MongoDB: backend dùng `@nestjs/mongoose`, `mongoose` và biến `MONGODB_URI`.
 3.2 Cấu hình môi trường
 Back-end cần biến môi trường:
-- `MONGODB_URI`: chuỗi kết nối MongoDB. 
-- `JWT_SECRET`: secret dùng để ký JWT trong `AuthModule`. 
+- `MONGODB_URI`: chuỗi kết nối MongoDB.
+- `JWT_SECRET`: secret dùng để ký JWT trong `AuthModule`.
 Lưu ý bảo mật: file `BE/gr1_be/envSample` có chứa giá trị mẫu cho connection string và JWT secret. Khi triển khai thật nên tạo file `.env` riêng và không commit secret thật.
 
 

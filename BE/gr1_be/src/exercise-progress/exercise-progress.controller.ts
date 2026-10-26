@@ -6,7 +6,11 @@ import {
     Param,
     Patch,
     Post,
+    Query,
+    UseGuards,
 } from '@nestjs/common';
+import { getPagination } from '../common/pagination';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { ExerciseProgressService } from './exercise-progress.service';
 import { CreateExerciseProgressDto } from './dto/create-exercise-progress.dto';
@@ -14,6 +18,7 @@ import { UpdateExerciseProgressDto } from './dto/update-exercise-progress.dto';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
 @Controller('exercise-progress')
+@UseGuards(JwtAuthGuard)
 export class ExerciseProgressController {
     constructor(
         private readonly progressService: ExerciseProgressService,
@@ -56,13 +61,15 @@ export class ExerciseProgressController {
     })
     getProgressByUserId(
         @Param('userId') userId: string,
+        @Query('page') page?: string,
+        @Query('limit') limit?: string,
     ) {
-        return this.progressService.findByUserId(userId);
+        return this.progressService.findByUserId(userId, getPagination(page, limit));
     }
 
     @Get()
-    findAll() {
-        return this.progressService.findAll();
+    findAll(@Query('page') page?: string, @Query('limit') limit?: string) {
+        return this.progressService.findAll(getPagination(page, limit));
     }
 
     @Get(':id')

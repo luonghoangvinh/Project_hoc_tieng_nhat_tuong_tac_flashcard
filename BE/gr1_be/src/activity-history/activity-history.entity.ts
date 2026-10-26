@@ -24,3 +24,4 @@ export class ActivityHistory {
 }
 export const ActivityHistorySchema =
     SchemaFactory.createForClass(ActivityHistory);
+ActivityHistorySchema.index({ accountId: 1, completeAt: -1 });

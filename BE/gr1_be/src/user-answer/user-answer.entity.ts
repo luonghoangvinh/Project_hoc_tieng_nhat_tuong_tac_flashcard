@@ -51,3 +51,4 @@ export class UserAnswer {
 }
 
 export const UserAnswerSchema = SchemaFactory.createForClass(UserAnswer);
+UserAnswerSchema.index({ userId: 1, answeredAt: -1 });

@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from 'react-router';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Brain, Zap, Puzzle, Flame, BarChart2, BookOpen } from 'lucide-react';
 import { QUIZ_MIN_CARDS, MATCHING_MIN_CARDS, getDeckStudyStats } from '../services/gameService';
 import { useEffect, useState } from 'react';

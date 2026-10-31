@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, XCircle, RotateCcw, Trophy } from 'lucide-react';
 import {
   generateQuizQuestions,

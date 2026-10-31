@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Star, Download, Bookmark, BookmarkCheck, Users } from 'lucide-react';
 import { CommunityDeck, DeckTopic } from '../types';
 import { useState } from 'react';

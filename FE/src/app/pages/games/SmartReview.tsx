@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useParams, Link } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, RotateCcw, Trophy, RefreshCw } from 'lucide-react';
 import {
   getCardsForSmartReview,

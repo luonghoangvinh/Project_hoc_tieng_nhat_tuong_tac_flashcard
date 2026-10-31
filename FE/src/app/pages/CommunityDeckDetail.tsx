@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft, Star, Download, Bookmark, BookmarkCheck,
   FileDown, Users, TrendingUp, ChevronLeft, ChevronRight,

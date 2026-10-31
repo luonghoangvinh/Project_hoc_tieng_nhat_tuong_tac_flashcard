@@ -3,7 +3,7 @@ import { getAuthHeaders } from './apiHeaders';
 const API_URL = import.meta.env.VITE_API_URL;
 const DECKS_STORAGE_KEY = 'jlpt_decks';
 // Get all decks
-export async function getDecks(id:string){
+export async function getDecks(id:string):Promise<Deck[]>{
   try{
     const res =await fetch(`${API_URL}/decks/user/${id}`, { headers: getAuthHeaders() })
     const data=await res.json()

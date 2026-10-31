@@ -11,6 +11,14 @@ import { PracticeSession } from './pages/PracticeSession';
 import { PracticeResult } from './pages/PracticeResult';
 import { Profile } from './pages/Profile';
 import { Settings } from './pages/Settings';
+import { Community } from './pages/Community';
+import { CommunityDeckDetail } from './pages/CommunityDeckDetail';
+import { StudyMode } from './pages/StudyMode';
+import { QuizGame } from './pages/games/QuizGame';
+import { MatchingGame } from './pages/games/MatchingGame';
+import { SmartReview } from './pages/games/SmartReview';
+import { SpeedChallenge } from './pages/games/SpeedChallenge';
+
 
 export const router = createBrowserRouter([
   {
@@ -98,6 +106,68 @@ export const router = createBrowserRouter([
         <Layout>
           <Settings />
         </Layout>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/community',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <Community />
+        </Layout>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/community/:deckId',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <CommunityDeckDetail />
+        </Layout>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/decks/:deckId/study',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <StudyMode />
+        </Layout>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/decks/:deckId/quiz',
+    element: (
+      <ProtectedRoute>
+        <QuizGame />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/decks/:deckId/matching',
+    element: (
+      <ProtectedRoute>
+        <MatchingGame />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/decks/:deckId/smart-review',
+    element: (
+      <ProtectedRoute>
+        <SmartReview />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/decks/:deckId/speed',
+    element: (
+      <ProtectedRoute>
+        <SpeedChallenge />
       </ProtectedRoute>
     )
   }

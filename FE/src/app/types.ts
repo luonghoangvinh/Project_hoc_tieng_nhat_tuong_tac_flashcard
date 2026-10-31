@@ -99,5 +99,99 @@ export interface ExerciseProgress{
   rightAnswer: number;
 
   
-
 }
+
+export type GameType = 'quiz' | 'matching' | 'speed' | 'smart-review' | 'word-builder';
+export type QuizDirection = 'jp-to-vn' | 'vn-to-jp';
+
+export interface QuizQuestion {
+  cardId: string;
+  question: string;
+  correctAnswer: string;
+  options: string[];
+  correctIndex: number;
+  direction: QuizDirection;
+}
+
+export interface MatchingItem {
+  id: string;
+  text: string;
+  pairId: string;
+  state: 'idle' | 'selected' | 'matched' | 'wrong';
+}
+
+export interface GameSession {
+  id: string;
+  deckId: string;
+  deckName: string;
+  gameType: GameType;
+  startedAt: Date;
+  completedAt: Date;
+  totalQuestions: number;
+  correctAnswers: number;
+  timeSpent: number;
+  wrongCardIds: string[];
+}
+
+export interface CardStudyRecord {
+  cardId: string;
+  deckId: string;
+  lastStudied: Date;
+  timesStudied: number;
+  timesCorrect: number;
+  timesWrong: number;
+}
+
+// ─── Community Flashcard Types ───────────────────────────────────────────────
+
+// Community deck topic
+export type DeckTopic = 'vocabulary' | 'grammar' | 'kanji' | 'conversation' | 'other';
+
+// Community deck - extends Deck with sharing metadata
+export interface CommunityDeck extends Deck {
+  authorId: string;
+  authorName: string;
+  authorAvatar?: string;
+  jlptLevel?: JLPTLevel;
+  topic: DeckTopic;
+  rating: number;
+  ratingCount: number;
+  downloadCount: number;
+  saveCount: number;
+  publishedAt: Date;
+  isPublic: boolean;
+  tags?: string[];
+}
+
+// User rating for a community deck
+export interface DeckRating {
+  id: string;
+  deckId: string;
+  userId: string;
+  userName: string;
+  rating: number;
+  comment?: string;
+  createdAt: Date;
+}
+
+// Config for publishing a deck
+export interface PublishConfig {
+  deckId: string;
+  title: string;
+  description: string;
+  jlptLevel: JLPTLevel;
+  topic: DeckTopic;
+  tags?: string[];
+}
+
+// Config for PDF export
+export interface PDFExportConfig {
+  includeReading: boolean;
+  includeExample: boolean;
+  showAnswers: boolean;
+  paperSize: 'a4' | 'letter';
+  layout: 'front-only' | 'front-back';
+}
+
+// Sort options for community decks
+export type CommunitySortOption = 'newest' | 'popular' | 'top-rated' | 'most-downloaded';

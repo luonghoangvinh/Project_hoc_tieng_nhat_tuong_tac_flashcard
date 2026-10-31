@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, BookOpen, BarChart3, Menu, Bell, Settings, User, LogOut, Target, BookMarked, PenTool, Headphones } from 'lucide-react';
+import { Home, BookOpen, BarChart3, Menu, Bell, Settings, User, LogOut, Target, BookMarked, PenTool, Headphones, Globe } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { JLPTLevel } from '../types';
 
@@ -59,6 +59,7 @@ export function Layout({ children, selectedLevel, onLevelChange }: Readonly<Layo
   const navItems = [
     { path: '/', label: 'Trang chủ', icon: Home },
     { path: '/decks', label: 'Flashcard Decks', icon: BookOpen },
+    { path: '/community', label: 'Cộng đồng', icon: Globe },
     { path: '/progress', label: 'Tiến độ học tập', icon: BarChart3 }
   ];
   

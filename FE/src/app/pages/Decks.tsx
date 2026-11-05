@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search, ChevronLeft, ChevronRight, Upload } from 'lucide-react';
+import { Plus, Search, ChevronLeft, ChevronRight, Upload, Globe } from 'lucide-react';
 import { DeckCard } from '../components/DeckCard';
 import { DeckModal } from '../components/DeckModal';
 import { mockDecks } from '../data/mockData';
 import { getDecks, createDeck, updateDeck, deleteDeck, duplicateDeck, exportDeck, importDeck } from '../utils/deckStorage';
-import { Deck } from '../types';
-
+import { Deck, PublishConfig } from '../types';
+import { PublishDeckModal } from '../components/PublishDeckModal copy';
+import { publishDeck, unpublishDeck, isDeckPublished } from '../services/communityService';
 const DECKS_PER_PAGE = 30;
 
 export function Decks() {
@@ -16,6 +17,10 @@ export function Decks() {
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [editingDeck, setEditingDeck] = useState<Deck | null>(null);
   const [personalDecks, setPersonalDecks] = useState<Deck[]>([]);
+
+  const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
+  const [publishTargetId, setPublishTargetId] = useState<string | undefined>(undefined);
+  const [publishNotice, setPublishNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   const userStr = localStorage.getItem('user');
   const userData = userStr ? JSON.parse(userStr) : null;
@@ -131,6 +136,31 @@ export function Decks() {
     }
   };
 
+    const handlePublishDeck = async (config: PublishConfig) => {
+    try {
+      await publishDeck(config);
+      setPublishNotice({ type: 'success', message: 'Bộ thẻ đã được đăng lên cộng đồng thành công!' });
+      setTimeout(() => setPublishNotice(null), 4000);
+    } catch {
+      setPublishNotice({ type: 'error', message: 'Đăng tải thất bại. Vui lòng thử lại.' });
+      setTimeout(() => setPublishNotice(null), 4000);
+      throw new Error('Publish failed');
+    }
+  };
+
+  const handleUnpublishDeck = async (deckId: string) => {
+    if (!confirm('Gỡ bộ thẻ khỏi cộng đồng? Những người đã tải bộ thẻ sẽ vẫn giữ bản sao của họ.')) return;
+    try {
+      await unpublishDeck(deckId);
+      setPublishNotice({ type: 'success', message: 'Đã gỡ bộ thẻ khỏi cộng đồng.' });
+      setTimeout(() => setPublishNotice(null), 3000);
+      loadDecks();
+    } catch {
+      setPublishNotice({ type: 'error', message: 'Gỡ bộ thẻ thất bại. Vui lòng thử lại.' });
+      setTimeout(() => setPublishNotice(null), 3000);
+    }
+  };
+
   const handleImportDeck = async () => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -155,6 +185,11 @@ export function Decks() {
     input.click();
   };
 
+    const handleOpenPublishModal = (deckId?: string) => {
+    setPublishTargetId(deckId);
+    setIsPublishModalOpen(true);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -171,6 +206,13 @@ export function Decks() {
               <Upload className="size-5" />
               Import
             </button>
+            <button
+                onClick={() => handleOpenPublishModal()}
+                className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-green-500 text-green-700 rounded-lg font-medium hover:bg-green-50 transition-colors"
+              >
+                <Globe className="size-5" />
+                Đăng lên cộng đồng
+              </button>
             <button
               onClick={handleCreateDeck}
               className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
@@ -229,6 +271,9 @@ export function Decks() {
                 onDelete={selectedTab === 'personal' ? () => handleDeleteDeck(deck._id) : undefined}
                 onDuplicate={selectedTab === 'personal' ? () => handleDuplicateDeck(deck._id) : undefined}
                 onExport={selectedTab === 'personal' ? () => handleExportDeck(deck._id) : undefined}
+                onPublish={selectedTab === 'personal' && !isDeckPublished(deck._id) ? () => handleOpenPublishModal(deck._id) : undefined}
+                onUnpublish={selectedTab === 'personal' && isDeckPublished(deck._id) ? () => handleUnpublishDeck(deck._id) : undefined}
+                isPublished={selectedTab === 'personal' && isDeckPublished(deck._id)}
               />
             ))}
           </div>
@@ -296,6 +341,17 @@ export function Decks() {
         deck={editingDeck}
         mode={modalMode}
       />
+
+      {/* Publish Modal */}
+      <PublishDeckModal
+        isOpen={isPublishModalOpen}
+        onClose={() => { setIsPublishModalOpen(false); setPublishTargetId(undefined); }}
+        onConfirm={handlePublishDeck}
+        decks={personalDecks}
+        preselectedDeckId={publishTargetId}
+      />
     </div>
+
+    
   );
 }

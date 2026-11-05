@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Shuffle, Star } from 'lucide-react';
+import { ArrowLeft, BookOpen, Gamepad2, Shuffle, Star } from 'lucide-react';
 import { Flashcard } from '../components/Flashcard';
 import { getDeckById } from '../utils/deckStorage';
 import { Deck } from '../types';
@@ -84,10 +84,11 @@ export function FlashcardView() {
             <Shuffle className="size-4" />
             Xáo trộn
           </button>
+          {/*
           <button className="flex items-center gap-2 px-4 py-2 bg-yellow-50 border border-yellow-300 text-yellow-700 rounded-lg font-medium hover:bg-yellow-100 transition-colors">
             <Star className="size-4" />
             Lưu thẻ
-          </button>
+          </button>*/}
         </div>
       </div>
 
@@ -104,17 +105,28 @@ export function FlashcardView() {
 
       {/* Study options */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Tùy chọn học tập</h3>
-        <div className="grid md:grid-cols-3 gap-3">
-          <button className="px-4 py-3 bg-green-50 text-green-700 rounded-lg font-medium hover:bg-green-100 transition-colors border border-green-200">
-            ⚡ Học nhanh (chỉ thẻ chưa thuộc)
-          </button>
-          <button className="px-4 py-3 bg-blue-50 text-blue-700 rounded-lg font-medium hover:bg-blue-100 transition-colors border border-blue-200">
-            🎯 Ôn tập (tất cả thẻ)
-          </button>
-          <button className="px-4 py-3 bg-purple-50 text-purple-700 rounded-lg font-medium hover:bg-purple-100 transition-colors border border-purple-200">
-            🌟 Thẻ đã lưu
-          </button>
+        <h3 className="font-semibold text-gray-900 mb-4">Chế độ học tập</h3>
+        <div className="grid md:grid-cols-2 gap-3">
+          <Link
+            to={`/decks/${deckId}/study`}
+            className="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-700 rounded-lg font-medium hover:bg-blue-100 transition-colors border border-blue-200"
+          >
+            <Gamepad2 className="size-5" />
+            <div>
+              <p className="font-semibold">Học tương tác</p>
+              <p className="text-xs text-blue-500 font-normal">Trắc nghiệm, nối cặp, ôn tập thông minh</p>
+            </div>
+          </Link>
+          <Link
+            to={`/decks/${deckId}/smart-review`}
+            className="flex items-center gap-3 px-4 py-3 bg-purple-50 text-purple-700 rounded-lg font-medium hover:bg-purple-100 transition-colors border border-purple-200"
+          >
+            <BookOpen className="size-5" />
+            <div>
+              <p className="font-semibold">Ôn tập thông minh</p>
+              <p className="text-xs text-purple-500 font-normal">Ưu tiên thẻ hay sai và thẻ mới</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

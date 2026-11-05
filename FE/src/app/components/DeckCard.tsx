@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, MoreVertical, Edit, Trash2, Copy, Download, Eye } from 'lucide-react';
+import { Calendar, Clock, MoreVertical, Edit, Trash2, Copy, Download, Eye, Globe, EyeOff } from 'lucide-react';
 import { Deck } from '../types';
 import { useState, useRef, useEffect } from 'react';
 
@@ -10,9 +10,12 @@ interface DeckCardProps {
   onDuplicate?: () => void;
   onExport?: () => void;
   isCustom?: boolean;
+  onPublish?: () => void;
+  onUnpublish?: () => void;
+  isPublished?: boolean;
 }
 
-export function DeckCard({ deck, onEdit, onDelete, onDuplicate, onExport, isCustom = false }: Readonly<DeckCardProps>) {
+export function DeckCard({ deck, onEdit, onDelete, onDuplicate, onExport, onPublish, onUnpublish,isCustom = false , isPublished = false}: Readonly<DeckCardProps>) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   
@@ -57,7 +60,15 @@ export function DeckCard({ deck, onEdit, onDelete, onDuplicate, onExport, isCust
   };
   
   return (
+    
     <div className="group block bg-white rounded-2xl shadow-sm border-2 border-gray-200 hover:border-blue-500 hover:shadow-xl transition-all duration-300 overflow-hidden hover:scale-105 relative">
+      {/* Published badge */}
+      {isPublished && (
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-1 px-2 py-0.5 bg-green-500 text-white text-xs font-semibold rounded-full shadow-sm">
+          <Globe className="size-3" />
+          Công khai
+        </div>
+      )}
       {/* Menu button - only show for custom decks */}
       {isCustom && (onEdit || onDelete || onDuplicate || onExport) && (
         <div className="absolute top-3 right-3 z-10" ref={menuRef}>
@@ -100,6 +111,24 @@ export function DeckCard({ deck, onEdit, onDelete, onDuplicate, onExport, isCust
                 >
                   <Download className="size-4" />
                   Xuất file
+                </button>
+              )}
+              {onPublish && (
+                <button
+                  onClick={(e) => handleMenuClick(e, onPublish)}
+                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-green-700 hover:bg-green-50 transition-colors"
+                >
+                  <Globe className="size-4" />
+                  Đăng lên cộng đồng
+                </button>
+              )}
+              {onUnpublish && (
+                <button
+                  onClick={(e) => handleMenuClick(e, onUnpublish)}
+                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 transition-colors"
+                >
+                  <EyeOff className="size-4" />
+                  Gỡ khỏi cộng đồng
                 </button>
               )}
               {onDelete && (

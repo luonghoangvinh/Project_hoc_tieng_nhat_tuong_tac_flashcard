@@ -215,10 +215,6 @@ export function DeckCard({ deck, onEdit, onDelete, onDuplicate, onExport, onPubl
               <span className="text-gray-600 group-hover:text-blue-700 font-medium transition-colors">
                 Tiếp tục học →
               </span>
-              <div className="flex items-center gap-1 text-gray-500">
-                <Clock className="size-3" />
-                <span className="text-xs">~15 phút</span>
-              </div>
             </div>
           </div>
         )}

@@ -28,7 +28,7 @@ Người học tiếng nhật hiện nay phải sử dụng nhiều nguồn khá
 
 ## 3. Hướng dẫn cài đặt và chạy thử
 3.1 Yêu cầu môi trường
-- Node.js/NPM: cần cho cả `FE` và `BE/gr1_be`, vì cả hai đều có `package.json`.
+- Node.js/NPM: cần cho cả `FE` và `BE/gr2_be`, vì cả hai đều có `package.json`.
 - Front-end dependencies chính: React, Vite, TypeScript, Tailwind CSS, React Router, Radix UI, MUI, lucide-react, recharts. 
 - Back-end dependencies chính: NestJS, Mongoose, `@nestjs/config`, `@nestjs/jwt`, Passport JWT, bcrypt, class-validator. 
 - MongoDB: backend dùng `@nestjs/mongoose`, `mongoose` và biến `MONGODB_URI`.
@@ -36,20 +36,20 @@ Người học tiếng nhật hiện nay phải sử dụng nhiều nguồn khá
 Back-end cần biến môi trường:
 - `MONGODB_URI`: chuỗi kết nối MongoDB.
 - `JWT_SECRET`: secret dùng để ký JWT trong `AuthModule`.
-Lưu ý bảo mật: file `BE/gr1_be/envSample` có chứa giá trị mẫu cho connection string và JWT secret. Khi triển khai thật nên tạo file `.env` riêng và không commit secret thật.
+Lưu ý bảo mật: file `BE/gr2_be/envSample` có chứa giá trị mẫu cho connection string và JWT secret. Khi triển khai thật nên tạo file `.env` riêng và không commit secret thật.
 
 
 3.3 Các bước cài đặt và chạy
 1. Tại thư mục root project:
 ```powershell
-cd "… \GR1"
+cd "… \gr2"
 ```
 2. Cài đặt và chạy back-end:
 ```powershell
-cd BE\gr1_be
+cd BE\gr2_be
 npm install
 ```
-3. Tạo file `.env` trong `BE/gr1_be` dựa trên `envSample`:
+3. Tạo file `.env` trong `BE/gr2_be` dựa trên `envSample`:
 ```text
 MONGODB_URI=<MongoDB connection string>
 JWT_SECRET=<JWT secret>

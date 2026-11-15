@@ -9,6 +9,7 @@ import { DeckModule } from './deck/deck.module';
 import { ExerciseProgressModule } from './exercise-progress/exercise-progress.module';
 import { AuthModule } from './auth/auth.module';
 import { UserAnswerModule } from './user-answer/user-answer.module';
+import { CommunityModule } from './community/community.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UserAnswerModule } from './user-answer/user-answer.module';
     ActivityHistoryModule,
     AuthModule,
     UserAnswerModule,
+    CommunityModule,
   ],
 })
 export class AppModule {}

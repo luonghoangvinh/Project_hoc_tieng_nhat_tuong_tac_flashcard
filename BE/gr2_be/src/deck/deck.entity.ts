@@ -41,7 +41,48 @@ export class Deck {
 
     @Prop({ default: 0 })
     viewCount?: number;
+
+    @Prop({ default: false })
+    isPublic?: boolean;
+
+    @Prop({
+        enum: ['N5', 'N4', 'N3', 'N2', 'N1'],
+        required: false,
+    })
+    jlptLevel?: string;
+
+    @Prop({
+        enum: ['vocabulary', 'grammar', 'kanji', 'conversation', 'other'],
+        default: 'vocabulary',
+    })
+    topic?: string;
+
+    @Prop({
+        type: [String],
+        default: [],
+    })
+    tags?: string[];
+
+    @Prop({ default: 0 })
+    downloadCount?: number;
+
+    @Prop({ default: 0 })
+    saveCount?: number;
+
+    @Prop({ default: 0 })
+    rating?: number;
+
+    @Prop({ default: 0 })
+    ratingCount?: number;
+
+    @Prop({ default: null })
+    publishedAt?: Date;
+
+    @Prop({ default: false })
+    isDeleted?: boolean;
 }
 export const DeckSchema =
     SchemaFactory.createForClass(Deck);
 DeckSchema.index({ userId: 1 });
+DeckSchema.index({ isPublic: 1, jlptLevel: 1, topic: 1 });
+DeckSchema.index({ isPublic: 1, rating: -1, downloadCount: -1 });

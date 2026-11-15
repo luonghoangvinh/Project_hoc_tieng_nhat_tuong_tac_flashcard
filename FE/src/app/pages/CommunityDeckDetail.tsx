@@ -9,6 +9,8 @@ import {
   fetchCommunityDeckById,
   fetchDeckRatings,
   fetchRelatedDecks,
+  fetchSavedDeckIds,
+  fetchUserRating,
   isDeckSaved,
   saveDeck,
   unsaveDeck,
@@ -187,12 +189,13 @@ function RatingSection({ deckId }: { deckId: string }) {
       .then(setRatings)
       .finally(() => setLoading(false));
 
-    const existing = getUserRating(deckId);
-    if (existing) {
-      setUserRating(existing.rating);
-      setComment(existing.comment || '');
-      setSubmitted(true);
-    }
+    fetchUserRating(deckId).then(existing => {
+      if (existing) {
+        setUserRating(existing.rating);
+        setComment(existing.comment || '');
+        setSubmitted(true);
+      }
+    });
   }, [deckId]);
 
   const avgRating = ratings.length > 0
@@ -390,8 +393,11 @@ export function CommunityDeckDetail() {
     setLoading(true);
     setError('');
 
-    fetchCommunityDeckById(deckId)
-      .then(d => {
+    Promise.all([
+      fetchCommunityDeckById(deckId),
+      fetchSavedDeckIds(),
+    ])
+      .then(([d]) => {
         if (!d) { setError('Không tìm thấy bộ thẻ này'); return; }
         setDeck(d);
         setIsSaved(isDeckSaved(deckId));

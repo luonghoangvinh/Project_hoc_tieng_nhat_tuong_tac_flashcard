@@ -271,9 +271,9 @@ export function Decks() {
                 onDelete={selectedTab === 'personal' ? () => handleDeleteDeck(deck._id) : undefined}
                 onDuplicate={selectedTab === 'personal' ? () => handleDuplicateDeck(deck._id) : undefined}
                 onExport={selectedTab === 'personal' ? () => handleExportDeck(deck._id) : undefined}
-                onPublish={selectedTab === 'personal' && !isDeckPublished(deck._id) ? () => handleOpenPublishModal(deck._id) : undefined}
-                onUnpublish={selectedTab === 'personal' && isDeckPublished(deck._id) ? () => handleUnpublishDeck(deck._id) : undefined}
-                isPublished={selectedTab === 'personal' && isDeckPublished(deck._id)}
+                onPublish={selectedTab === 'personal' && !(deck.visibility === 'community' || isDeckPublished(deck._id)) ? () => handleOpenPublishModal(deck._id) : undefined}
+                onUnpublish={selectedTab === 'personal' && (deck.visibility === 'community' || isDeckPublished(deck._id)) ? () => handleUnpublishDeck(deck._id) : undefined}
+                isPublished={selectedTab === 'personal' && (deck.visibility === 'community' || isDeckPublished(deck._id))}
               />
             ))}
           </div>

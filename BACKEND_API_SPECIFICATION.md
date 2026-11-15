@@ -843,9 +843,7 @@ erDiagram
   "updatedAt": "2026-11-08T10:12:45.000Z"
 }
 ```
-
 ---
-
 ### 7.7. Collection: `deck_ratings`
 - **Mục đích:** Lưu trữ đánh giá số sao và bình luận của người dùng đối với bộ thẻ cộng đồng.
 

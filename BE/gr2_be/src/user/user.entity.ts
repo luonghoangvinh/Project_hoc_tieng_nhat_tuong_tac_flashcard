@@ -30,6 +30,9 @@ export class User {
     @Prop({ default: 0 })
     streak!: number;
 
+    @Prop({ default: '' })
+    avatar?: string;
+
     @Prop()
     lastStudyDate?: Date;
 }

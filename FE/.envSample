@@ -1,1 +1,3 @@
-VITE_API_URL=https://rakunjlpt-api.onrender.com
+#VITE_API_URL=https://rakunjlpt-api.onrender.com
+## API cho BE local
+VITE_API_URL=http://localhost:3000

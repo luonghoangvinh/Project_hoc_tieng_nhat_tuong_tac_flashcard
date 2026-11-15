@@ -5,6 +5,7 @@ import { CommunityDeckCard } from '../components/CommunityDeckCard';
 import {
   fetchCommunityDecks,
   fetchFeaturedSections,
+  fetchSavedDeckIds,
   isDeckSaved,
   saveDeck,
   unsaveDeck,
@@ -91,9 +92,13 @@ export function Community() {
 
   // Init saved state
   useEffect(() => {
-    const allDecks = [...(featured?.newest || []), ...(featured?.topRated || []), ...(featured?.mostDownloaded || []), ...decks];
-    const ids = new Set(allDecks.map(d => d._id).filter(id => isDeckSaved(id)));
-    setSavedIds(ids);
+    fetchSavedDeckIds()
+      .then(ids => setSavedIds(new Set(ids)))
+      .catch(() => {
+        const allDecks = [...(featured?.newest || []), ...(featured?.topRated || []), ...(featured?.mostDownloaded || []), ...decks];
+        const ids = new Set(allDecks.map(d => d._id).filter(id => isDeckSaved(id)));
+        setSavedIds(ids);
+      });
   }, [decks, featured]);
 
   // Load featured sections on mount
